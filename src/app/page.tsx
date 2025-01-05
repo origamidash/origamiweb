@@ -1,36 +1,57 @@
 import Link from "next/link";
+import {
+  Instrument_Serif,
+  Instrument_Sans,
+  DM_Sans,
+  DM_Mono,
+} from "next/font/google";
+
+import { AuroraBackground } from "@/components/ui/aurora-background";
+
+const instrumentSerif = Instrument_Serif({ weight: "400" });
+const instrumentSans = Instrument_Sans({ weight: "400" });
+const dmSans = DM_Sans({ weight: "400" });
+const dmMono = DM_Mono({ weight: "400" });
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
+    <main className="grain flex min-h-screen flex-row justify-center text-white">
+      <div className="w-full max-w-[100rem]">
+        <div className="relative m-4 overflow-hidden rounded-lg border border-neutral-800 shadow-xl">
+          <AuroraBackground
+            showRadialGradient={true}
+            className="h-[24rem] hue-rotate-180"
           >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
+            <div className="z-20 flex flex-col items-center justify-center gap-3">
+              <div
+                className={`${instrumentSerif.className} text-6xl text-neutral-200`}
+              >
+                Origami
+              </div>
+              <p
+                className={`${instrumentSans.className} text-2xl tracking-tight text-neutral-200`}
+              >
+                Dashboards made easy.
+              </p>
+
+              <div className="mt-4 flex flex-row items-center gap-3">
+                <Link
+                  href={"/dashboard?onboarding=true"}
+                  className="rounded-full border border-neutral-700 bg-white/10 p-2 px-5 font-bold text-white hue-rotate-180 backdrop-blur-lg"
+                >
+                  Get started
+                </Link>
+                <Link
+                  href={"/docs"}
+                  className="rounded-full border border-neutral-700 bg-white/5 p-2 px-5 font-bold text-white hue-rotate-180 backdrop-blur-lg"
+                >
+                  View docs
+                </Link>
+              </div>
             </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
+          </AuroraBackground>
         </div>
+        <div className="neumoirphic m-4 h-96 w-96 rounded-lg"></div>
       </div>
     </main>
   );
