@@ -24,28 +24,27 @@ import {
   DM_Mono,
 } from "next/font/google";
 
-const instrumentSerif = Instrument_Serif({ weight: "400" });
-const instrumentSans = Instrument_Sans({ weight: "400" });
-const dmSans = DM_Sans({ weight: "400" });
-const dmMono = DM_Mono({ weight: "400" });
+const instrumentSerif = Instrument_Serif({ weight: "400", subsets: ["latin"] });
+const instrumentSans = Instrument_Sans({ weight: "400", subsets: ["latin"] });
+const dmSans = DM_Sans({ weight: "400", subsets: ["latin"] });
+const dmMono = DM_Mono({ weight: "400", subsets: ["latin"] });
 
 export default function Navbar() {
   const pathname = usePathname();
 
   const router = useRouter();
 
-  if (pathname.startsWith("/dashboard") || pathname.startsWith("/docs")) {
+  if (pathname.startsWith("/dashboard")) {
     return;
   }
 
   return (
-    <nav className="sticky top-4 z-50 m-4 mb-4 mt-0 flex flex-row items-center gap-4 rounded-lg border border-neutral-800 bg-neutral-950 p-1 px-4 text-white">
-      <Link href={"/"}>
-        <img
-          src="/icon.svg"
-          alt="Origami logo"
-          className="aspect-square h-14 translate-y-0.5"
-        />
+    <nav className="sticky top-4 z-50 m-4 mb-4 mt-0 flex flex-row items-center gap-4 rounded-lg border border-neutral-800 bg-neutral-950 p-2 px-5 text-white">
+      <Link
+        href={"/"}
+        className="flex h-8 min-h-8 w-8 min-w-8 items-center justify-center"
+      >
+        <img src="/icon.svg" alt="Origami logo" />
       </Link>
 
       <NavigationMenu className="flex w-full flex-row items-center gap-8">
@@ -81,20 +80,22 @@ export default function Navbar() {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="w-full grow"></div>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton>
-          <UserButton.MenuItems>
-            <UserButton.Action
-              label="Continue to dashboard"
-              labelIcon={<DotIcon />}
-              onClick={() => router.push("/dashboard")}
-            />
-          </UserButton.MenuItems>
-        </UserButton>
-      </SignedIn>
+      <div className="flex w-24 flex-row justify-end gap-2">
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton>
+            <UserButton.MenuItems>
+              <UserButton.Action
+                label="Continue to dashboard"
+                labelIcon={<DotIcon />}
+                onClick={() => router.push("/dashboard")}
+              />
+            </UserButton.MenuItems>
+          </UserButton>
+        </SignedIn>
+      </div>
     </nav>
   );
 }

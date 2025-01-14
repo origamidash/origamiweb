@@ -20,7 +20,7 @@ const dmMono = DM_Mono({ weight: "400", subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Origami",
   description: "Dashboards made easy.",
-  icons: [{ rel: "icon", url: "/icon.svg" }],
+  icons: [{ rel: "icon", url: "/small-icon.svg" }],
 };
 
 export default function RootLayout({

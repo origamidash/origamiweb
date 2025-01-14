@@ -8,5 +8,5 @@ export default {
   dbCredentials: {
     url: env.DATABASE_URL,
   },
-  tablesFilter: ["oragamiweb_*"],
+  tablesFilter: ["origamiweb_*"],
 } satisfies Config;

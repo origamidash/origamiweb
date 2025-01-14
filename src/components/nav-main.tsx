@@ -1,12 +1,24 @@
 "use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react";
+import * as React from "react";
+
+import Link from "next/link";
+
+import {
+  ChevronRight,
+  SquareTerminal,
+  Book,
+  type LucideIcon,
+} from "lucide-react";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+
+import { PlusIcon } from "lucide-react";
+
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -18,22 +30,49 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 
-export function NavMain({
-  items,
-}: {
-  items: {
-    title: string;
-    url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
-    items?: {
-      title: string;
-      url: string;
-    }[];
-  }[];
-}) {
+import { getDashboards } from "@/server/dashboards";
+import { dashboards } from "@/server/db/schema";
+
+export function NavMain() {
+  const [dashboards, setDashboards] = React.useState([]);
+
+  React.useEffect(() => {
+    getDashboards().then((dashboards: any) => {
+      setDashboards(dashboards);
+    });
+  }, []);
+
+  // This is sample data.
+  const items = [
+    {
+      title: "Dashboards",
+      url: "#",
+      icon: SquareTerminal,
+      isActive: true,
+      items: [
+        ...dashboards.map((dashboard: any) => ({
+          title: dashboard.name,
+          url: `/dashboard/${dashboard.internalID}`,
+          internalID: dashboard.internalID,
+        })),
+      ],
+    },
+    {
+      title: "Documentation",
+      url: "#",
+      icon: Book,
+      isActive: false,
+      items: [
+        ...dashboards.map((dashboard: any) => ({
+          title: dashboard.name,
+          url: `/dashboard/${dashboard.internalID}`,
+          internalID: dashboard.internalID,
+        })),
+      ],
+    },
+  ];
   return (
-    <SidebarGroup>
+    <SidebarGroup className="pt-0">
       <SidebarGroupLabel>Dashboards</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
@@ -54,11 +93,11 @@ export function NavMain({
               <CollapsibleContent>
                 <SidebarMenuSub>
                   {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
+                    <SidebarMenuSubItem key={subItem.internalID}>
                       <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
+                        <Link href={subItem.url}>
                           <span>{subItem.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}

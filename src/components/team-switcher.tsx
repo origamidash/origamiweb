@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-
-import { PlusIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 import {
   SidebarMenu,
@@ -15,11 +15,20 @@ export function TeamSwitcher() {
   const { isMobile } = useSidebar();
 
   return (
-    <SidebarMenu>
+    <SidebarMenu className="flex flex-col">
       <SidebarMenuItem>
-        <SidebarMenuButton className="bg-stone-100 font-semibold text-neutral-900 transition-colors hover:bg-neutral-200 hover:text-neutral-900 active:bg-neutral-300 active:text-neutral-900">
-          <PlusIcon></PlusIcon>New dashboard
-        </SidebarMenuButton>
+        <Link
+          href={"/dashboard"}
+          className="flex flex-row items-center justify-center"
+        >
+          <Image
+            alt="Origami logo"
+            src={"/icon.svg"}
+            height={90}
+            width={90}
+            className="h-9 w-7"
+          ></Image>
+        </Link>
       </SidebarMenuItem>
     </SidebarMenu>
   );

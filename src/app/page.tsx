@@ -7,11 +7,12 @@ import {
 } from "next/font/google";
 
 import { AuroraBackground } from "@/components/ui/aurora-background";
+import { InteractiveHoverButton } from "@/components/ui/interactive-button";
 
-const instrumentSerif = Instrument_Serif({ weight: "400" });
-const instrumentSans = Instrument_Sans({ weight: "400" });
-const dmSans = DM_Sans({ weight: "400" });
-const dmMono = DM_Mono({ weight: "400" });
+const instrumentSerif = Instrument_Serif({ weight: "400", subsets: ["latin"] });
+const instrumentSans = Instrument_Sans({ weight: "400", subsets: ["latin"] });
+const dmSans = DM_Sans({ weight: "400", subsets: ["latin"] });
+const dmMono = DM_Mono({ weight: "400", subsets: ["latin"] });
 
 export default function HomePage() {
   return (
@@ -34,18 +35,12 @@ export default function HomePage() {
                 Dashboards made easy.
               </p>
 
-              <div className="mt-4 flex flex-row items-center gap-3">
-                <Link
-                  href={"/dashboard?onboarding=true"}
-                  className="rounded-full border border-neutral-700 bg-white/10 p-2 px-5 font-bold text-white hue-rotate-180 backdrop-blur-lg"
-                >
-                  Get started
-                </Link>
-                <Link
-                  href={"/docs"}
-                  className="rounded-full border border-neutral-700 bg-white/5 p-2 px-5 font-bold text-white hue-rotate-180 backdrop-blur-lg"
-                >
-                  View docs
+              <div className="mt-4 flex flex-row items-center gap-1">
+                <Link href={"/dashboard?onboarding=true"}>
+                  <InteractiveHoverButton
+                    className="w-60"
+                    text="Get started today"
+                  />
                 </Link>
               </div>
             </div>
