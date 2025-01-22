@@ -12,7 +12,7 @@ import { InteractiveHoverButton } from "@/components/ui/interactive-button";
 import { BookOpen, PlusIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
-import { Order } from "./templateCreator";
+import { Order } from "./NewApp";
 
 export default function NewAppPage() {
   return (

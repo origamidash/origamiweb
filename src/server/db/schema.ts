@@ -60,3 +60,19 @@ export const dashboards = createTable(
     internalIndex: index("internal_index").on(example.internalID),
   }),
 );
+
+export const dashboardNodes = createTable("dashboard_nodes", {
+  id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
+  internalID: varchar("internal_id")
+    .unique()
+    .references(() => dashboards.internalID),
+  name: varchar("name", { length: 256 }).notNull(),
+  source: varchar("source", { length: 256 }).notNull(),
+  dataType: varchar("data_type", { length: 256 }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+    () => new Date(),
+  ),
+});

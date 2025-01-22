@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 
 import Link from "next/link";
@@ -33,16 +31,15 @@ import {
 import { getDashboards } from "@/server/dashboards";
 import { dashboards } from "@/server/db/schema";
 
-export function NavMain() {
-  const [dashboards, setDashboards] = React.useState([]);
+import { notFound } from "next/navigation";
 
-  React.useEffect(() => {
-    getDashboards().then((dashboards: any) => {
-      setDashboards(dashboards);
-    });
-  }, []);
+export async function NavMain() {
+  let dashboards = await getDashboards();
 
-  // This is sample data.
+  if (!dashboards) {
+    dashboards = [];
+  }
+
   const items = [
     {
       title: "Dashboards",
@@ -75,37 +72,35 @@ export function NavMain() {
     <SidebarGroup className="pt-0">
       <SidebarGroupLabel>Dashboards</SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => (
-          <Collapsible
-            key={item.title}
-            asChild
-            defaultOpen={item.isActive}
-            className="group/collapsible"
-          >
-            <SidebarMenuItem>
-              <CollapsibleTrigger asChild>
-                <SidebarMenuButton tooltip={item.title}>
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
-                  <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                </SidebarMenuButton>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarMenuSub>
-                  {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.internalID}>
-                      <SidebarMenuSubButton asChild>
-                        <Link href={subItem.url}>
-                          <span>{subItem.title}</span>
-                        </Link>
-                      </SidebarMenuSubButton>
-                    </SidebarMenuSubItem>
-                  ))}
-                </SidebarMenuSub>
-              </CollapsibleContent>
-            </SidebarMenuItem>
-          </Collapsible>
-        ))}
+        <Collapsible
+          key={"Dashboards"}
+          asChild
+          defaultOpen={true}
+          className="group/collapsible"
+        >
+          <SidebarMenuItem>
+            <CollapsibleTrigger asChild>
+              <SidebarMenuButton tooltip={"Dashboards"}>
+                {SquareTerminal && <SquareTerminal />}
+                <span>Dashboards</span>
+                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+              </SidebarMenuButton>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <SidebarMenuSub>
+                {...dashboards.map((subItem) => (
+                  <SidebarMenuSubItem key={subItem.internalID}>
+                    <SidebarMenuSubButton asChild>
+                      <Link href={`/dashboard/${subItem.internalID}`}>
+                        <span>{subItem.name}</span>
+                      </Link>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                ))}
+              </SidebarMenuSub>
+            </CollapsibleContent>
+          </SidebarMenuItem>
+        </Collapsible>
       </SidebarMenu>
     </SidebarGroup>
   );

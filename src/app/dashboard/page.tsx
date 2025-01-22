@@ -54,24 +54,6 @@ export default function DashboardPage() {
           </div>
         </AuroraBackground>
       </div>
-
-      <div className="mt-2.5 flex w-full flex-col items-center justify-center gap-2.5">
-        <div className="relative flex max-w-[24rem] flex-col overflow-hidden rounded-lg border border-neutral-800 font-semibold antialiased transition-all duration-300">
-          <Image
-            src={"/nextorigami2.png"}
-            alt="NextOrigami logo"
-            height={1920}
-            width={1080}
-            quality={90}
-            className="aspect-video w-full"
-          />
-
-          <div className="absolute bottom-0 flex w-full items-center justify-around gap-3 border-t border-neutral-800 bg-neutral-950 p-3 px-4 text-left font-semibold tracking-tight transition-all duration-300 hover:bg-neutral-900">
-            <BookOpen className="mx-2 aspect-square h-full" />
-            <h1>Get started with a template design and Next.js API</h1>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

@@ -23,14 +23,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 import { InteractiveHoverButton } from "@/components/ui/interactive-button";
 
 import { createDashboard } from "@/server/dashboards";
@@ -47,7 +39,10 @@ export function Order() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: {
+      name: "",
+      url: "",
+    },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -60,7 +55,7 @@ export function Order() {
       return;
     }
 
-    router.push("/dashboard/" + newDashboard[0]?.internalID);
+    window.location.href = `/dashboard/${newDashboard.internalID}`;
   }
 
   return (
@@ -108,8 +103,8 @@ export function Order() {
         <div className="flex flex-row gap-3 self-end justify-self-end">
           <InteractiveHoverButton
             type="submit"
-            className="w-40"
-            text="Continue!"
+            className="w-36"
+            text="Continue"
           />
         </div>
       </form>

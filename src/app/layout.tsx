@@ -34,7 +34,7 @@ export default function RootLayout({
     >
       <html
         lang="en"
-        className={`${instrumentSans.className} dark bg-black/95`}
+        className={`${instrumentSans.className} dark bg-black`}
       >
         <body>
           <Navbar />
